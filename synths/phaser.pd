@@ -11,7 +11,7 @@
 #X obj 143 217 +~ 2;
 #X msg 196 143 2.385;
 #X obj 143 266 *~ 0.8;
-#X obj 35 473 outlet~;
+#X obj 34 506 outlet~;
 #X obj 41 27 inlet~;
 #X obj 36 361 delread~ \$0-phasor 21;
 #X obj 39 331 delwrite~ \$0-phasor 30000;
@@ -23,7 +23,7 @@
 #X obj 96 27 inlet;
 #X obj 334 227 / 100;
 #X obj 152 27 inlet;
-#X obj 334 204 moses 100;
+#X obj 334 202 clip 0 99;
 #X connect 0 0 1 0;
 #X connect 0 0 6 0;
 #X connect 1 0 2 0;
