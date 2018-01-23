@@ -20,16 +20,18 @@ void draw() {
   loadPixels();
 
   // Do stuff for each of the 4 area's
-  for (int area=0; area<4; area++){
+  for (int area=0; area<4; area++)
+  {
+    int areaOffsetX = int((area % 2) * width * 0.5);
+    int areaOffsetY = int(area * 0.5) * int(width * height * 0.5);
 
     // Do stuff for the pixels in this area
-    for (int px=0; px < (pixels.length*0.25); px++) {
-      //pixels[px % int(width*0.5) + int(px / (width * 0.5)) * width] = color(255);
-      pixels[px % int(width*0.5) + int(px / (width * 0.5)) * width] = color(255);
-      //pixels[px + area*int(pixels.length*0.25)] = color(64*area, 0, 0);
+    for (int px=0; px < (pixels.length*0.25); px++) 
+    {
+      pixels[(px % int(width*0.5) + int(px / (width * 0.5)) * width) + areaOffsetX + areaOffsetY] = color(64*area, 0, 0);
     }
   }
-  
+
   updatePixels();
 
   line(width*0.5, 0, width*0.5, height);
