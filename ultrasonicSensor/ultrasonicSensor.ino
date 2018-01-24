@@ -11,55 +11,30 @@
 */
 
 #include "floatsmoothing.h"
+#include <NewPing.h>
 
-FloatSmoothing distanceSm(0.01);
+FloatSmoothing distanceSm(0.05);
 
-int trigPin = 8;    //Trig - green Jumper
-int echoPin = 9;    //Echo - yellow Jumper
-long duration;
-float cm;
+#define TRIGGER_PIN 8
+#define ECHO_PIN 9
+#define MAX_DISTANCE 450
 float distanceSmooth;
 
+NewPing sonar(TRIGGER_PIN, ECHO_PIN, MAX_DISTANCE);
+// NewPing setup of pins and maximum distance.
 
 void setup() {
-  //Serial Port begin
+
   Serial.begin (9600);
-  //Define inputs and outputs
-  pinMode(trigPin, OUTPUT);
-  pinMode(echoPin, INPUT);
+
 }
 
 
+void loop() {
 
-void loop()
-{
-
-
-  // The sensor is triggered by a HIGH pulse of 10 or more microseconds.
-  // Give a short LOW pulse beforehand to ensure a clean HIGH pulse:
-  digitalWrite(trigPin, LOW);
-  delayMicroseconds(5);
-  digitalWrite(trigPin, HIGH);
-  delayMicroseconds(10);
-  digitalWrite(trigPin, LOW);
-
-  // Read the signal from the sensor: a HIGH pulse whose
-  // duration is the time (in microseconds) from the sending
-  // of the ping to the reception of its echo off of an object.
-  pinMode(echoPin, INPUT);
-  duration = pulseIn(echoPin, HIGH);
-
-  // convert the time into a distance
-  cm = (duration / 2) / 29.1;
-  distanceSmooth = distanceSm.smooth(cm);
-
-  Serial.print("0 600 ");
+  delay(50);
+  unsigned int uS = sonar.ping_cm();
+  distanceSmooth = distanceSm.smooth(uS);
   Serial.println(distanceSmooth);
-  //Serial.println(cm);
-  /*
-    Serial.print("cm");
-    Serial.println();
-  */
 
-  delay(100);
 }
