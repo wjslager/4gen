@@ -1,0 +1,51 @@
+#N canvas 519 0 911 1010 10;
+#X obj 22 231 inlet~;
+#X obj 125 482 outlet~;
+#X obj 111 455 delread4~ \$0_delay;
+#X obj 77 556 delwrite~ \$0_delay 2000;
+#X obj 144 240 sig~;
+#X obj 140 262 lop~ 2;
+#X obj 110 519 *~ 0.2, f 16;
+#X obj 109 373 +~;
+#X obj 207 326 *~ 5;
+#X obj 198 296 osc~ 0.8;
+#X obj 346 212 hsl 64 15 100 1900 0 1 empty empty ms 75 5 0 10 -262144
+-1 -1 2800 1;
+#X obj 346 229 hsl 64 15 0 1 0 1 empty empty fb 75 5 0 10 -262144 -1
+-1 3500 1;
+#X obj 346 246 hsl 64 15 0 20 0 1 empty empty mod 75 5 0 10 -262144
+-1 -1 2450 1;
+#X obj 346 263 hsl 64 15 0.01 10 1 1 empty empty rate 75 5 0 10 -262144
+-1 -1 2300 1;
+#X obj 112 398 clip~ 50 2000;
+#X obj 207 348 lop~ 10;
+#X obj 347 364 outlet;
+#X obj 348 160 inlet;
+#X obj 348 182 unpack f f f f;
+#X obj 347 330 pack f f f f;
+#X connect 0 0 3 0;
+#X connect 2 0 6 0;
+#X connect 2 0 1 0;
+#X connect 4 0 5 0;
+#X connect 5 0 7 0;
+#X connect 6 0 3 0;
+#X connect 7 0 14 0;
+#X connect 8 0 15 0;
+#X connect 9 0 8 0;
+#X connect 10 0 4 0;
+#X connect 10 0 19 0;
+#X connect 11 0 6 1;
+#X connect 11 0 19 1;
+#X connect 12 0 8 1;
+#X connect 12 0 19 2;
+#X connect 13 0 9 0;
+#X connect 13 0 19 3;
+#X connect 14 0 2 0;
+#X connect 15 0 7 1;
+#X connect 17 0 18 0;
+#X connect 18 0 10 0;
+#X connect 18 1 11 0;
+#X connect 18 2 12 0;
+#X connect 18 3 13 0;
+#X connect 19 0 16 0;
+#X coords 0 -1 1 1 120 70 2 344 210;
