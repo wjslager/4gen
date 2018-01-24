@@ -14,8 +14,8 @@
 #include <NewPing.h>
 
 
-#define TRIGGER_PIN 8
-#define ECHO_PIN 9
+#define TRIGGER_PIN1 8
+#define ECHO_PIN1 9
 
 #define TRIGGER_PIN2 2
 #define ECHO_PIN2 3
@@ -34,7 +34,7 @@ FloatSmoothing distanceSm1(0.1);
 FloatSmoothing distanceSm2(0.1);
 FloatSmoothing distanceSm3(0.1);
 
-NewPing S1(TRIGGER_PIN, ECHO_PIN, MAX_DISTANCE);
+NewPing S1(TRIGGER_PIN1, ECHO_PIN1, MAX_DISTANCE);
 NewPing S2(TRIGGER_PIN2, ECHO_PIN2, MAX_DISTANCE);
 NewPing S3(TRIGGER_PIN3, ECHO_PIN3, MAX_DISTANCE);
 
@@ -56,12 +56,12 @@ void loop() {
   distanceSmooth2 = distanceSm2.smooth(uS2);
   distanceSmooth3 = distanceSm3.smooth(uS3);
 
-  Serial.print("0 600 ");
-  Serial.print(distanceSmooth1);
-  Serial.print("\t");
-  Serial.print(distanceSmooth2);
-  Serial.print("\t");
-  Serial.println(distanceSmooth3);
+  //Serial.print("0 600 ");
+  Serial.print(distanceSmooth1, DEC);
+  Serial.print(" ");
+  Serial.print(distanceSmooth2, DEC);
+  Serial.print(" ");
+  Serial.println(distanceSmooth3, DEC);
 
   delay(25);
 }
