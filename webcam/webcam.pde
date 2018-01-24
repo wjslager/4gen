@@ -82,6 +82,7 @@ void draw()
     }
     // Send the message
     oscP5.send(msgDifference, puredata);
+    println("OSC message sent @" + millis() + "ms");
   }
 
   line(width*0.5, 0, width*0.5, height);

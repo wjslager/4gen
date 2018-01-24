@@ -1,0 +1,48 @@
+#N canvas 330 22 959 833 10;
+#X obj 167 256 print ERROR;
+#X obj 56 223 convert.ascii2pd CR;
+#N canvas 712 205 905 623 in&out 0;
+#X obj 114 116 list-extend;
+#X obj 191 77 sel 10;
+#X msg 191 185 50 49 48 46 48 48 48 48 48 48 48 48 48 48 32 57 48 46
+50 51 49 57 55 49 55 52 48 55 32 51 48 46 55 55 53 51 49 52 51 51 49
+49 13;
+#X obj 190 157 prepend set;
+#X obj 193 236 gate;
+#X msg 126 209 0;
+#X msg 160 207 1;
+#X obj 116 30 inlet;
+#X obj 198 268 outlet;
+#X obj 87 80 route 10;
+#X connect 0 0 3 0;
+#X connect 1 0 0 1;
+#X connect 1 0 6 0;
+#X connect 1 0 2 0;
+#X connect 1 1 5 0;
+#X connect 2 0 4 1;
+#X connect 3 0 2 0;
+#X connect 4 0 8 0;
+#X connect 5 0 4 0;
+#X connect 6 0 4 0;
+#X connect 7 0 1 0;
+#X connect 7 0 9 0;
+#X connect 9 1 0 0;
+#X restore 56 186 pd in&out;
+#X msg 22 102 devices;
+#X text 154 145 < change the numer 2 to the comport used by Arduino
+;
+#X text 85 102 < Click me to see what is connected to serial port;
+#X text 130 187 < click me to see what's in the sub patch;
+#X text 189 224 < don't worry about this one!;
+#X text 22 11 Arduino 2 Pd - communication protocole by recyclism;
+#X text 21 48 NOTE: You need to have the file convert.ascii2pd.pd in
+the same folder as this patch;
+#X text 155 157 < change the numer 9600 to the boudrate used by Arduino
+;
+#X obj 55 151 comport 1 9600;
+#X obj 49 261 outlet;
+#X connect 1 0 12 0;
+#X connect 1 2 0 0;
+#X connect 2 0 1 0;
+#X connect 3 0 11 0;
+#X connect 11 0 2 0;
