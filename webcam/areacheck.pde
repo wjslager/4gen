@@ -1,4 +1,5 @@
-class AreaChecker {  
+class AreaChecker 
+{  
   int x1, y1, x2, y2, totalPixels, px;
   float r = 0, g = 0, b = 0;
   float lastR, lastG, lastB;
@@ -41,10 +42,7 @@ class AreaChecker {
     lastR = r;
     lastG = g;
     lastB = b;
-    
-    text(difference, x1 + x2*0.5, y1 + y2*0.5);
 
-    //fill(r, g, b, 255);
-    //rect(x1, y1, x2, y2);
+    text(difference, x1 + x2*0.5, y1 + y2*0.5);
   }
 } 

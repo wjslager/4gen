@@ -1,7 +1,0 @@
-#N canvas 54 -8 1842 1026 10;
-#X obj 177 47 import mrpeach;
-#X obj 184 161 udpreceive 12000;
-#X obj 185 194 unpackOSC;
-#X obj 185 216 print;
-#X connect 1 0 2 0;
-#X connect 2 0 3 0;
