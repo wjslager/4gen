@@ -12,17 +12,20 @@ class AreaChecker
     x2 = x2in;
     y2 = y2in;
     totalPixels = x2 * y2;
-    //println("New areachecker " + x1 + " " + y1 + " "  + x2 + " "  + y2);
   } 
 
   void check() 
   {
+    r = 0; 
+    g = 0; 
+    b = 0;
     loadPixels();
 
     // Execute actions for each pixels
     for (int i=0; i<totalPixels; i++)
     {
-      //   horiz.     vert.                   x  &  y   offset
+      // Convert i to the pixel coordinates of pixels within this AreaChecker
+      //   horiz.     vert.   wrap            x  &  y    offset
       px = (i % x2) + (int(i / x2) * width) + x1 + (y1 * width);
 
       // Retrieve RGB values using bitshifting (magic)
@@ -44,5 +47,9 @@ class AreaChecker
     lastB = b;
 
     text(difference, x1 + x2*0.5, y1 + y2*0.5);
+  }
+
+  void calibrate()
+  {
   }
 } 
