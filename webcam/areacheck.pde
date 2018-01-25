@@ -1,9 +1,11 @@
 class AreaChecker 
 {  
   int x1, y1, x2, y2, totalPixels, px;
-  float r = 0, g = 0, b = 0;
+  float r, g, b;
+  float rCalibration, gCalibration, bCalibration;
   float lastR, lastG, lastB;
-  float difference;
+  float activity;   // difference with last check
+  float difference; // difference from calibration
 
   AreaChecker(int x1in, int y1in, int x2in, int y2in) 
   {
@@ -19,9 +21,7 @@ class AreaChecker
     r = 0; 
     g = 0; 
     b = 0;
-    loadPixels();
 
-    // Execute actions for each pixels
     for (int i=0; i<totalPixels; i++)
     {
       // Convert i to the pixel coordinates of pixels within this AreaChecker
@@ -39,17 +39,40 @@ class AreaChecker
     g = g / totalPixels;
     b = b / totalPixels;
 
-    // Difference since last check
-    difference = (r - lastR) + (g - lastG) + (b - lastB);
+    // Activity since last check
+    activity   = (r - lastR)        + (g - lastG)        + (b - lastB);
+    difference = (r - rCalibration) + (g - gCalibration) + (b - bCalibration);
 
     lastR = r;
     lastG = g;
     lastB = b;
 
-    text(difference, x1 + x2*0.5, y1 + y2*0.5);
+    rect(x1, y1, x2 - 1, y2 - 1);
+    text("Activity: " + activity, x1 + 10, y1 + 10);
+    text("Difference: " + difference, x1 + 10, y1 + 35);
   }
 
   void calibrate()
   {
+    rCalibration = 0; 
+    gCalibration = 0; 
+    bCalibration = 0;
+
+    for (int i=0; i<totalPixels; i++)
+    {
+      // Convert i to the pixel coordinates of pixels within this AreaChecker
+      //   horiz.     vert.   wrap            x  &  y    offset
+      px = (i % x2) + (int(i / x2) * width) + x1 + (y1 * width);
+
+      // Retrieve RGB values using bitshifting (magic)
+      rCalibration += (pixels[px] >> 16) & 0xFF;
+      gCalibration += (pixels[px] >> 8)  & 0xFF;
+      bCalibration +=  pixels[px]        & 0xFF;
+    }
+
+    // Average
+    rCalibration = rCalibration / totalPixels;
+    gCalibration = gCalibration / totalPixels;
+    bCalibration = bCalibration / totalPixels;
   }
 } 

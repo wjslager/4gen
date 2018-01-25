@@ -18,8 +18,9 @@ Capture webcam;
 OscP5 oscP5;
 NetAddress puredata;
 
-AreaChecker[] areaCheckers;
-int[] areaDiffs;
+AreaChecker[] areaCheckers; // AreaChecker instances
+float[] areaActivities;     // frame per frame comparisons
+float[] areaDifferences;    // frame to calibration comparisons
 
 /* ==== ==== ==== SETUP ==== ==== ==== */
 
@@ -47,12 +48,21 @@ void setup()
   areaCheckers[2] = new AreaChecker(0, halfHeight, halfWidth, halfHeight);
   areaCheckers[3] = new AreaChecker(halfWidth, halfHeight, halfWidth, halfHeight);
 
-  // Initialize all areaDiffs with 0
-  areaDiffs = new int[areaCheckers.length];
-  for (int i=0; i<areaCheckers.length; i++) areaDiffs[i] = 0;
+  // Load the first webcam frame to be used for calibration
+  image(webcam, 0, 0);
+  loadPixels();
+
+  areaActivities = new float[areaCheckers.length];
+  areaDifferences = new float[areaCheckers.length];
+  for (int i=0; i<areaCheckers.length; i++) {
+    areaActivities[i] = 0;
+    areaDifferences[i] = 0;
+    areaCheckers[i].calibrate();
+  }
 
   noFill();
-  textAlign(CENTER, CENTER);
+  stroke(255, 0, 255);
+  textAlign(LEFT, TOP);
   textSize(20);
 }
 
@@ -61,30 +71,32 @@ void setup()
 void draw() 
 {
   image(webcam, 0, 0);
+  loadPixels();
 
-  for (int i=0; i<4; i++)
+  for (int i=0; i<areaCheckers.length; i++)
   {
     areaCheckers[i].check();
 
-    // Store the activity to be sent later
-    // Using abs() to prevent positive and negative activity to cancel each other
-    areaDiffs[i] += abs(areaCheckers[i].difference);
+    // Store the absolute values to prevent positive and negative values from cancelling e
+    areaActivities[i] += abs(areaCheckers[i].activity);
+    areaDifferences[i] += abs(areaCheckers[i].difference);
   }
 
   // Only send an OSC message once per second
   if (frameCount % fps == 0) 
   {
-    // Send the message and empty the difference memory
     OscMessage msgDifference = new OscMessage("/difference");
-    for (int i=0; i<areaCheckers.length; i++) {
-      msgDifference.add(areaDiffs[i]);
-      areaDiffs[i] = 0;
+
+    for (int i=0; i<areaCheckers.length; i++)
+    {
+      msgDifference.add(areaActivities[i]);
+      msgDifference.add(areaDifferences[i]);
+      areaActivities[i] = 0;
+      areaDifferences[i] = 0;
     }
+    
     oscP5.send(msgDifference, puredata);
   }
-
-  line(halfWidth, 0, halfWidth, height);
-  line(0, halfHeight, width, halfHeight);
 }  
 
 void captureEvent(Capture webcam) {
