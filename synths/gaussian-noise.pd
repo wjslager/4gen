@@ -1,8 +1,8 @@
-#N canvas 0 22 1280 728 10;
+#N canvas 335 141 1280 728 10;
 #X obj 65 32 noise~;
 #X obj 63 79 max~ 0;
 #X obj 117 78 min~ 0;
-#X obj 201 85 sig~ \$1;
+#X obj 202 84 sig~ \$1;
 #X obj 104 140 +~;
 #X obj 117 105 *~ -1;
 #X obj 104 167 *~;
