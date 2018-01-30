@@ -1,0 +1,81 @@
+#N canvas 54 -8 1842 1026 10;
+#X obj 414 205 cnv 15 128 128 empty empty empty 20 12 0 14 -233017
+-66577 0;
+#X obj 545 205 cnv 15 128 128 empty empty empty 20 12 0 14 -233017
+-66577 0;
+#X obj 545 336 cnv 15 128 128 empty empty empty 20 12 0 14 -233017
+-66577 0;
+#X obj 414 336 cnv 15 128 128 empty empty empty 20 12 0 14 -233017
+-66577 0;
+#X obj 29 94 cnv 15 329 49 empty empty empty 20 12 0 14 -233017 -66577
+0;
+#X obj 34 110 4chvca~, f 43;
+#X obj 34 14 sig~ 1;
+#X obj 34 306 snapshot~;
+#X obj 119 306 snapshot~;
+#X obj 204 306 snapshot~;
+#X obj 289 306 snapshot~;
+#X obj 34 330 vsl 15 128 0 1 0 0 empty empty empty 0 -9 0 10 -262144
+-1 -1 9058 1;
+#X obj 204 330 vsl 15 128 0 1 0 0 empty empty empty 0 -9 0 10 -262144
+-1 -1 0 1;
+#X obj 119 330 vsl 15 128 0 1 0 0 empty empty empty 0 -9 0 10 -262144
+-1 -1 8901 1;
+#X obj 289 330 vsl 15 128 0 1 0 0 empty empty empty 0 -9 0 10 -262144
+-1 -1 0 1;
+#X obj 297 284 metro 10;
+#X obj 297 242 loadbang;
+#X text 289 465 Back right;
+#X text 119 465 Front right;
+#X text 34 465 Front left;
+#X text 204 465 Back left;
+#X text 293 126 Back right;
+#X text 123 126 Front right;
+#X text 38 126 Front left;
+#X text 208 126 Back left;
+#X text 251 93 X;
+#X text 299 93 Y;
+#X obj 297 264 tgl 15 0 empty empty empty 17 7 0 10 -262144 -1 -1 1
+1;
+#X text 598 442 Back right;
+#X text 598 206 Front right;
+#X text 421 206 Front left;
+#X text 421 444 Back left;
+#X text 251 93 X;
+#X text 299 93 Y;
+#X text 527 187 Y = 1;
+#X text 527 466 Y = -1;
+#X text 372 325 X = -1;
+#X text 676 325 X = 1;
+#X obj 238 36 sin~;
+#X obj 289 36 cos~;
+#X obj 238 14 phasor~ 0.1;
+#X text 324 18 A sine wired to the X inlet and a cosine to the Y inlet
+should result in the signal rotating clockwise;
+#X text 477 163 Channel configuration;
+#X text 399 70 Setting X and Y both to 0 will result in the signal
+being centered \, all signals have the same gain:;
+#X text 399 119 cos(0.25 * pi) = 0.707107;
+#X text 399 101 1/2 * sqrt(2) = 0.707107;
+#X connect 5 0 7 0;
+#X connect 5 1 8 0;
+#X connect 5 2 9 0;
+#X connect 5 3 10 0;
+#X connect 6 0 5 0;
+#X connect 6 0 5 1;
+#X connect 6 0 5 2;
+#X connect 6 0 5 3;
+#X connect 7 0 11 0;
+#X connect 8 0 13 0;
+#X connect 9 0 12 0;
+#X connect 10 0 14 0;
+#X connect 15 0 10 0;
+#X connect 15 0 9 0;
+#X connect 15 0 8 0;
+#X connect 15 0 7 0;
+#X connect 16 0 27 0;
+#X connect 27 0 15 0;
+#X connect 38 0 5 4;
+#X connect 39 0 5 5;
+#X connect 40 0 38 0;
+#X connect 40 0 39 0;
