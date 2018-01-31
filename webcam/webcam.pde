@@ -42,11 +42,16 @@ void setup()
   // Create AreaCheckers for the 4 area's of a screen, orientation:
   // 0 1
   // 2 3
+  /*
   areaCheckers = new AreaChecker[4];
   areaCheckers[0] = new AreaChecker(0, 0, halfWidth, halfHeight);
   areaCheckers[1] = new AreaChecker(halfWidth, 0, halfWidth, halfHeight);
   areaCheckers[2] = new AreaChecker(0, halfHeight, halfWidth, halfHeight);
   areaCheckers[3] = new AreaChecker(halfWidth, halfHeight, halfWidth, halfHeight);
+  */
+  areaCheckers = new AreaChecker[2];
+  areaCheckers[1] = new AreaChecker(0, 0, halfWidth, height);
+  areaCheckers[0] = new AreaChecker(halfWidth, 0, halfWidth, height);
 
   // Load the first webcam frame to be used for calibration
   image(webcam, 0, 0);
@@ -64,6 +69,7 @@ void setup()
   stroke(255, 0, 255);
   textAlign(LEFT, TOP);
   textSize(20);
+  surface.setResizable(true);
 }
 
 /* ==== ==== ==== DRAW ==== ==== ==== */
