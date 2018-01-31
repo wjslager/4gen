@@ -1,0 +1,13 @@
+#N canvas 884 52 532 684 10;
+#X obj 75 45 inlet~;
+#X obj 80 297 outlet~;
+#X obj 80 203 delread4~ \$0_del1;
+#X obj 72 100 delwrite~ \$0_del1 2000;
+#X obj 170 254 pitch-shifter;
+#X obj 79 163 sig~ \$1;
+#X obj 170 276 *~ \$2;
+#X connect 0 0 3 0;
+#X connect 2 0 1 0;
+#X connect 2 0 4 0;
+#X connect 4 0 6 0;
+#X connect 5 0 2 0;

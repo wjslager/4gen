@@ -12,6 +12,7 @@ import oscP5.*;
 import netP5.*;
 
 final int fps = 15;
+final int gain = 3;
 int halfWidth, halfHeight;
 
 Capture webcam;
@@ -32,7 +33,9 @@ void setup()
   halfWidth = int(width * 0.5);
   halfHeight = int(height * 0.5);
 
-  webcam = new Capture(this, 640, 480);
+  //webcam = new Capture(this, 640, 480);
+  webcam = new Capture(this, "name=HD Pro Webcam C920,size=640x480,fps=30"
+    );
   webcam.start();  
 
   // Listen to 12001, send on 12000
@@ -44,11 +47,11 @@ void setup()
   // 2 3
   /*
   areaCheckers = new AreaChecker[4];
-  areaCheckers[0] = new AreaChecker(0, 0, halfWidth, halfHeight);
-  areaCheckers[1] = new AreaChecker(halfWidth, 0, halfWidth, halfHeight);
-  areaCheckers[2] = new AreaChecker(0, halfHeight, halfWidth, halfHeight);
-  areaCheckers[3] = new AreaChecker(halfWidth, halfHeight, halfWidth, halfHeight);
-  */
+   areaCheckers[0] = new AreaChecker(0, 0, halfWidth, halfHeight);
+   areaCheckers[1] = new AreaChecker(halfWidth, 0, halfWidth, halfHeight);
+   areaCheckers[2] = new AreaChecker(0, halfHeight, halfWidth, halfHeight);
+   areaCheckers[3] = new AreaChecker(halfWidth, halfHeight, halfWidth, halfHeight);
+   */
   areaCheckers = new AreaChecker[2];
   areaCheckers[1] = new AreaChecker(0, 0, halfWidth, height);
   areaCheckers[0] = new AreaChecker(halfWidth, 0, halfWidth, height);
@@ -88,23 +91,32 @@ void draw()
     areaDifferences[i] += abs(areaCheckers[i].difference);
   }
 
-  // Only send an OSC message once per second
-  if (frameCount % fps == 0) 
+  // Only send an OSC message once per ... frames
+  if (frameCount % 5 == 0) 
   {
     OscMessage msgDifference = new OscMessage("/difference");
 
     for (int i=0; i<areaCheckers.length; i++)
     {
-      msgDifference.add(areaActivities[i]);
-      msgDifference.add(areaDifferences[i]);
+      msgDifference.add(areaActivities[i] * gain);
+      msgDifference.add(areaDifferences[i] * gain);
       areaActivities[i] = 0;
       areaDifferences[i] = 0;
     }
-    
+
     oscP5.send(msgDifference, puredata);
   }
 }  
 
 void captureEvent(Capture webcam) {
   webcam.read();
+}
+
+void keyPressed() {
+  if (key == ' ') {
+    println("Calibratie");
+    for (int i=0; i<areaCheckers.length; i++) {
+      areaCheckers[i].calibrate();
+    }
+  }
 }
