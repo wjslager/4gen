@@ -65,9 +65,8 @@ void setup()
   for (int i=0; i<areaCheckers.length; i++) {
     areaActivities[i] = 0;
     areaDifferences[i] = 0;
-    areaCheckers[i].calibrate();
   }
-  println("Calibratie");
+  calibrate();
 
   noFill();
   stroke(255, 0, 255);
@@ -115,9 +114,19 @@ void captureEvent(Capture webcam) {
 
 void keyPressed() {
   if (key == ' ') {
-    println("Calibratie");
-    for (int i=0; i<areaCheckers.length; i++) {
-      areaCheckers[i].calibrate();
-    }
+    calibrate();
   }
+}
+
+void calibrate() {
+  println("calibrate");
+  for (int i=0; i<areaCheckers.length; i++) {
+    areaCheckers[i].calibrate();
+  }
+}
+
+void oscEvent(OscMessage theOscMessage) {
+  // Event message boeit niet eens, als er maar iets is
+  println(millis() + " >> OSC received");
+  calibrate();
 }
