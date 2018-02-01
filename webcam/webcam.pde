@@ -33,9 +33,8 @@ void setup()
   halfWidth = int(width * 0.5);
   halfHeight = int(height * 0.5);
 
-  //webcam = new Capture(this, 640, 480);
-  webcam = new Capture(this, "name=HD Pro Webcam C920,size=640x480,fps=30"
-    );
+  webcam = new Capture(this, 640, 480);
+  //webcam = new Capture(this, "name=HD Pro Webcam C920,size=640x480,fps=5");
   webcam.start();  
 
   // Listen to 12001, send on 12000
@@ -56,29 +55,24 @@ void setup()
   areaCheckers[1] = new AreaChecker(0, 0, halfWidth, height);
   areaCheckers[0] = new AreaChecker(halfWidth, 0, halfWidth, height);
 
-  // Load the first webcam frame to be used for calibration
-  image(webcam, 0, 0);
-  loadPixels();
-
   areaActivities = new float[areaCheckers.length];
   areaDifferences = new float[areaCheckers.length];
   for (int i=0; i<areaCheckers.length; i++) {
     areaActivities[i] = 0;
     areaDifferences[i] = 0;
   }
-  calibrate();
 
   noFill();
   stroke(255, 0, 255);
   textAlign(LEFT, TOP);
   textSize(20);
-  surface.setResizable(true);
 }
 
 /* ==== ==== ==== DRAW ==== ==== ==== */
 
 void draw() 
 {
+  background(0);
   image(webcam, 0, 0);
   loadPixels();
 
