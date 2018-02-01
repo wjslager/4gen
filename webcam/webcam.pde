@@ -67,6 +67,7 @@ void setup()
     areaDifferences[i] = 0;
     areaCheckers[i].calibrate();
   }
+  println("Calibratie");
 
   noFill();
   stroke(255, 0, 255);
@@ -99,7 +100,7 @@ void draw()
     for (int i=0; i<areaCheckers.length; i++)
     {
       msgDifference.add(areaActivities[i] * gain);
-      msgDifference.add(areaDifferences[i] * gain);
+      msgDifference.add(areaDifferences[i] * 2);
       areaActivities[i] = 0;
       areaDifferences[i] = 0;
     }

@@ -4,9 +4,7 @@
 #N canvas 712 205 905 623 in&out 0;
 #X obj 114 116 list-extend;
 #X obj 191 77 sel 10;
-#X msg 191 185 50 49 48 46 48 48 48 48 48 48 48 48 48 48 32 57 48 46
-50 51 49 57 55 49 55 52 48 55 32 51 48 46 55 55 53 51 49 52 51 51 49
-49 13;
+#X msg 191 185 50 50 46 48 53 32;
 #X obj 190 157 prepend set;
 #X obj 193 236 gate;
 #X msg 126 209 0;
@@ -39,10 +37,10 @@
 the same folder as this patch;
 #X text 155 157 < change the numer 9600 to the boudrate used by Arduino
 ;
-#X obj 55 151 comport 1 9600;
 #X obj 49 261 outlet;
-#X connect 1 0 12 0;
+#X obj 55 151 comport 5 9600;
+#X connect 1 0 11 0;
 #X connect 1 2 0 0;
 #X connect 2 0 1 0;
-#X connect 3 0 11 0;
-#X connect 11 0 2 0;
+#X connect 3 0 12 0;
+#X connect 12 0 2 0;
